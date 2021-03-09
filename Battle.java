@@ -34,16 +34,16 @@ public class Battle {
             damage = 0;
         }
 
-        LoggerUtils.logDistinct(
-            character instanceof Hero,
+        LoggerUtils.logDistinctByActor(
+            character,
             "\nАтака (%s)!" +
             "\nКритический удар: (%d/%d) – " + CommandCLI.printBooleanVerbal(isCritical),
             character.getName(),
             criticalCheck.dice, criticalCheck.bound
         );
 
-        LoggerUtils.logDistinct(
-            character instanceof Hero,
+        LoggerUtils.logDistinctByActor(
+            character,
             "\nРасчет удара: %d (%d * 3) > %d (из 100) – " + CommandCLI.printBooleanVerbal(isSuccessHit),
             dexterity * 3, dexterity, hitRandom
         );
@@ -96,16 +96,16 @@ public class Battle {
     public static void battleMove(ACharacter actor, ACharacter subject) {
         final int damage = Battle.calculateHit(actor);
 
-        LoggerUtils.logDistinct(
-            actor instanceof Hero,
+        LoggerUtils.logDistinctByActor(
+            actor,
             "\n%s нанёс %d урона %s",
             actor.getName(), damage, subject.getName()
         );
 
         subject.takeDamage(damage);
 
-        LoggerUtils.logDistinct(
-            actor instanceof Hero,
+        LoggerUtils.logDistinctByActor(
+            actor,
             "\nУ %s осталось %d здоровья\n",
             subject.getName(), subject.getHealth()
         );

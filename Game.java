@@ -11,7 +11,7 @@ public class Game {
         CONTROLLER = new Controller();
         HERO = new Hero("Паладин Газебо");
 
-        CONTROLLER.startMainMenu();
+        Controller.startMainMenu();
     }
 
 }

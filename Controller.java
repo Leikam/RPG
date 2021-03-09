@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.TreeSet;
 import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Supplier;
 
 import RPG.characters.npc.Merchant;
 import RPG.utils.CommandCLI;
@@ -71,20 +69,22 @@ public class Controller {
         return choice;
     }
 
+
+
     enum LocationMenu implements IMenu {
         BACK("0. Вернуться в город"),
         CONTINUE("1. Продолжить"),
         ;
 
-        private String menuItem;
+        private String menuLabel;
 
         LocationMenu(String s) {
-            menuItem = s;
+            this.menuLabel = s;
         }
 
         @Override
         public String getMenuItemLabel() {
-            return menuItem;
+            return menuLabel;
         }
     }
 
@@ -95,15 +95,15 @@ public class Controller {
         INFO("3. Открыть инвентарь"),
         ;
 
-        private String menuItem;
+        private String menuLabel;
 
         Menu(String s) {
-            menuItem = s;
+            menuLabel = s;
         }
 
         @Override
         public String getMenuItemLabel() {
-            return menuItem;
+            return menuLabel;
         }
     }
 

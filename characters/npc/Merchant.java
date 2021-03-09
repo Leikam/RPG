@@ -1,7 +1,6 @@
 package RPG.characters.npc;
 
 import java.util.Optional;
-import java.util.function.Function;
 
 import RPG.Controller;
 import RPG.Game;
@@ -47,15 +46,15 @@ public class Merchant extends Bot {
         POTION("1. Зелье (100 золотых)"),
         ;
 
-        private String menuItem;
+        private String menuLabel;
 
         Menu(String s) {
-            menuItem = s;
+            menuLabel = s;
         }
 
         @Override
         public String getMenuItemLabel() {
-            return menuItem;
+            return menuLabel;
         }
     }
 

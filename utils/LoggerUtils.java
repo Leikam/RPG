@@ -1,5 +1,8 @@
 package RPG.utils;
 
+import RPG.characters.ACharacter;
+import RPG.characters.Hero;
+
 public class LoggerUtils {
 
     private static final String ANSI_RESET = "\u001B[0m";
@@ -20,6 +23,9 @@ public class LoggerUtils {
         } else {
             logNegative(message, args);
         }
+    }
 
+    public static void logDistinctByActor(ACharacter character, String message, Object... args) {
+        logDistinct(character instanceof Hero, message, args);
     }
 }
