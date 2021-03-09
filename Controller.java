@@ -57,6 +57,7 @@ public class Controller {
     public static <E extends Enum<E> & IMenu> int buildMenu(Optional<String> greeting, E... menus) throws IllegalStateException {
         final TreeSet<E> menu = new TreeSet<>(List.of(menus));
         greeting.ifPresent(System.out::println);
+        /* Делаем пункт "0. выход" всегда последним */
         menu.stream()
             .sorted((o1, o2) -> {
                 if (o1.ordinal() == 0) {
@@ -70,10 +71,9 @@ public class Controller {
             .forEach(item -> System.out.println(item.getMenuItemLabel()));
         CommandCLI.print("\n");
 
-        final int menuSize = menu.size() - 1;
         final int choice = CommandCLI.readInt();
 
-        if (choice > menuSize) {
+        if (choice > menu.size() - 1) {
             throw new IllegalStateException("Неверный пункт меню");
         }
 
