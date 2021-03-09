@@ -90,7 +90,7 @@ public class Battle {
 
         LoggerUtils.logDistinctByActor(
             actor,
-            "\n%s нанёс %d урона %s",
+            "\n%s нанёс %d урона %s" + (damage > 0 ? "" : " – промах!"),
             actor.getName(), damage, subject.getName()
         );
 
