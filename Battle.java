@@ -74,14 +74,15 @@ public class Battle {
             } else {
                 System.out.println("Герой победил!");
                 hero.loot(enemy);
+
+                Controller.startLocationMenu(
+                    unused -> {
+                        System.out.println("Продолжить бой");
+                        Battle.duel();
+                    }
+                );
             }
 
-            Controller.startLocationMenu(
-                unused -> {
-                    System.out.println("Продолжить бой");
-                    Battle.duel();
-                }
-            );
         }).start();
     }
 
