@@ -10,7 +10,7 @@ public class Monster extends Bot implements IWarrior {
 
     @Override
     public void attack(ACharacter character) {
-        Battle.battleMove(this, character);
+        Battle.dealDamage(this, character);
     }
 
 }

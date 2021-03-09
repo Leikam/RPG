@@ -17,7 +17,7 @@ public class Hero extends ACharacter implements IWarrior {
 
     @Override
     public void attack(ACharacter character) {
-        Battle.battleMove(this, character);
+        Battle.dealDamage(this, character);
     }
 
     @Override

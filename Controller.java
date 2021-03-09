@@ -10,12 +10,23 @@ import RPG.utils.CommandCLI;
 
 public class Controller {
 
+    public static void startGameMenu() {
+        final int choice = buildMenu(Optional.of("\nКуда пойдем?"), StartMenu.EXIT_MENU, StartMenu.NEW);
+        switch (StartMenu.values()[choice]) {
+            case EXIT_MENU -> {
+                System.out.println("Завершаем игру");
+                System.exit(0);
+            }
+            case NEW -> startMainMenu();
+        }
+    }
+
     public static void startMainMenu() {
         final int choice = buildMenu(Optional.of("\nКуда пойдем?"), Menu.EXIT_MENU, Menu.SHOP, Menu.WOOD, Menu.INFO);
         switch (Menu.values()[choice]) {
             case WOOD -> {
                 System.out.println("Идем в лес");
-                Battle.fight();
+                Battle.duel();
             }
             case SHOP -> {
                 System.out.println("Идем в лавку");
@@ -98,6 +109,23 @@ public class Controller {
         private String menuLabel;
 
         Menu(String s) {
+            menuLabel = s;
+        }
+
+        @Override
+        public String getMenuItemLabel() {
+            return menuLabel;
+        }
+    }
+
+    enum StartMenu implements IMenu {
+        EXIT_MENU("0. Выход"),
+        NEW("1. Начать новую игру"),
+        ;
+
+        private String menuLabel;
+
+        StartMenu(String s) {
             menuLabel = s;
         }
 

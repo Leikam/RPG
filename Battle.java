@@ -1,14 +1,12 @@
 package RPG;
 
 import java.util.Random;
-import java.util.function.Supplier;
 
 import RPG.characters.ACharacter;
 import RPG.characters.Hero;
 import RPG.characters.Monster;
 import RPG.characters.enemies.Goblin;
 import RPG.characters.enemies.Skeleton;
-import RPG.characters.npc.Merchant;
 import RPG.utils.CommandCLI;
 import RPG.utils.LoggerUtils;
 import RPG.utils.Randomizer;
@@ -51,7 +49,7 @@ public class Battle {
         return damage;
     }
 
-    public static void fight() {
+    public static void duel() {
         new Thread(() -> {
             System.out.println("⚔ ⚔ ⚔ Начинается битва! ⚔ ⚔ ⚔");
             final Hero hero = Game.HERO;
@@ -59,41 +57,35 @@ public class Battle {
             final Random random = new Random();
             Monster enemy = random.nextBoolean() ? new Goblin() : new Skeleton();
 
-            while (true) {
-                hero.attack(enemy);
-
-                if (enemy.isAlive()) {
-                    enemy.attack(hero);
-
-                    if (!hero.isAlive()) {
-                        System.out.print("Герой проиграл ✝ ..Игра окончена");
-                        /* @todo: начать новую игру; */
-                        System.exit(0);
-                        break;
-                    }
-                } else {
-                    System.out.printf("\nГерой победил!");
-                    hero.loot(enemy);
-                    break;
-                }
-
+            while (enemy.isAlive() && hero.isAlive()) {
                 try {
+                    hero.attack(enemy);
+                    Thread.sleep(1000);
+                    enemy.attack(hero);
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
 
+            if (enemy.isAlive()) {
+                System.out.println("Герой проиграл ✝ ..Игра окончена");
+                Controller.startGameMenu();
+            } else {
+                System.out.println("Герой победил!");
+                hero.loot(enemy);
+            }
+
             Controller.startLocationMenu(
                 unused -> {
                     System.out.println("Продолжить бой");
-                    Battle.fight();
+                    Battle.duel();
                 }
             );
         }).start();
     }
 
-    public static void battleMove(ACharacter actor, ACharacter subject) {
+    public static void dealDamage(ACharacter actor, ACharacter subject) {
         final int damage = Battle.calculateHit(actor);
 
         LoggerUtils.logDistinctByActor(
